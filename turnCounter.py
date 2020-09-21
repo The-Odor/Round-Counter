@@ -1,7 +1,11 @@
 print("""Turn counter for spells and effects!
 Usage: Input two arguments; name of effects and turns to last.
        If you put in nothing, a turn advances and counters count
-Example: Greater Flaming Sphere: 7""")
+Example: Greater Flaming Sphere: 7
+(input argument is split at ':' )""")
+
+# Uses one dicitionary to keep track of effects and another dictionary
+# to enable tracking of duplicate effects (and enumerates them as such)
 
 currentEffects = {}
 effectCounts = {}
