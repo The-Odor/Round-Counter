@@ -1,6 +1,3 @@
-from os import kill
-import tkinter as tk
-
 class TurnCounter():
     currentEffects = {}
     effectCounts = {}
@@ -26,7 +23,8 @@ class TurnCounter():
                 self.killList.append(effectName)
 
     def run(self):
-        while True:
+        run = True
+        while run:
             # Interprets input and puts info into both dictionaries
             cmd = input("\n\n\nTurn {}; What happens? ".format(self.roundCounter)).split(":")
             while len(cmd) > 1:
@@ -41,6 +39,9 @@ class TurnCounter():
                     self.effectCounts[inName] = 1
 
                 cmd = input("Anything else? ").split(":")
+            if(cmd[0].lower() == 'q'):
+                run = False
+                
             self.pprint()
             self.next_turn()
                 # KILLS THE UNWANTED. fr tho removes finished sequences from dictionaries
