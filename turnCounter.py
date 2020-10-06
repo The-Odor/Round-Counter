@@ -116,20 +116,18 @@ class GUIInterface(TurnCounter, threading.Thread):
 
 if __name__ == "__main__":
     if "--nogui" in argv:
+        print("""Turn counter for spells and effects!
+            Usage: Input two arguments; name of effects and turns to last.
+            If you put in nothing, a turn advances and counters count
+            Example: Greater Flaming Sphere: 7
+            (input argument is split at ':' )""")
         tc = TurnCounter()
         tc.run_nogui()
         sys.exit(0)
 
     tc = GUIInterface()
-    print("""Turn counter for spells and effects!
-    Usage: Input two arguments; name of effects and turns to last.
-           If you put in nothing, a turn advances and counters count
-    Example: Greater Flaming Sphere: 7
-    (input argument is split at ':' )""")
     #shady sleep to init the GUIinterface, could not while not is_alive then do while is_alive (but don't know if that is better)
     time.sleep(1)
     while tc.is_alive():
         tc.update_gui()
         time.sleep(0.1)
-
-
