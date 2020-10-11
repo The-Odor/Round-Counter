@@ -69,23 +69,17 @@ class TurnCounter():
 
 
 
-class GUIInterface(TurnCounter, threading.Thread):
-    text_lock = threading.Lock()
-    update_lock = threading.Lock()
-
-    def __init__(self) -> None:
-        threading.Thread.__init__(self)
-        self.start()
+class GUIInterface(TurnCounter):
 
     def add_effect(self, event):
-        with GUIInterface.update_lock:
-            cmd = self.entry.get().split(":")
-            self.do_input(cmd)
+        cmd = self.entry.get().split(":")
+        self.do_input(cmd)
+        self.update_gui()
 
     def next_turn_gui(self, event):
-        with GUIInterface.update_lock:
-            self.next_turn()
-            self.kill_old()
+        self.next_turn()
+        self.kill_old()
+        self.update_gui()
     
     def run(self):
         self.window = tk.Tk()
@@ -109,9 +103,8 @@ class GUIInterface(TurnCounter, threading.Thread):
         self.window.mainloop()
     
     def update_gui(self):
-        with GUIInterface.text_lock:
-            current = "It is turn {}\n".format(self.roundCounter)
-            self.display_text.set(current + self.pprint())
+        current = "It is turn {}\n".format(self.roundCounter)
+        self.display_text.set(current + self.pprint())
 
 
 if __name__ == "__main__":
@@ -126,8 +119,5 @@ if __name__ == "__main__":
         sys.exit(0)
 
     tc = GUIInterface()
-    #shady sleep to init the GUIinterface, could not while not is_alive then do while is_alive (but don't know if that is better)
-    time.sleep(1)
-    while tc.is_alive():
-        tc.update_gui()
-        time.sleep(0.1)
+    tc.run()
+
