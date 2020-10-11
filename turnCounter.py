@@ -52,7 +52,7 @@ class TurnCounter():
         self.killList.clear()             
 
 
-    def run_nogui(self):
+    def run(self):
         while self.run:
             # Interprets input and puts info into both dictionaries
             cmd = input("\n\n\nTurn {}; What happens? ".format(self.roundCounter)).split(":")
@@ -115,7 +115,7 @@ if __name__ == "__main__":
             Example: Greater Flaming Sphere: 7
             (input argument is split at ':' )""")
         tc = TurnCounter()
-        tc.run_nogui()
+        tc.run()
         sys.exit(0)
 
     tc = GUIInterface()
